@@ -2,10 +2,6 @@
 
 A real-time pathfinding visualization tool implementing **A\*** and **Dynamic A\* (D\* Lite)** algorithms with interactive obstacle editing and automatic replanning capabilities.
 
-![Project Status](https://img.shields.io/badge/status-active-success.svg)
-![Build](https://img.shields.io/badge/build-passing-brightgreen.svg)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-
 ## 📋 Table of Contents
 
 - [Overview](#overview)
