@@ -1,0 +1,12 @@
+﻿# Dynamic Maze Solver Configuration
+grid_width=25
+grid_height=15
+start_x=1
+start_y=1
+goal_x=23
+goal_y=13
+eight_directional=false
+obstacle_density=0.18
+simulation_speed=3
+algorithm=AStar
+random_event_probability=0.02
