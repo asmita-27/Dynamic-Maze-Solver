@@ -97,10 +97,8 @@ void Agent::update(Grid& grid) {
         grid.clearChanges();
     }
     
-    // Only auto-move if not in manual mode
-    if (!manualMode_) {
-        moveToNext();
-    }
+    // Don't auto-move - user always presses ENTER to move
+    // (Even in auto mode, only obstacles change automatically, not movement)
 }
 
 void Agent::reset() {
