@@ -1,0 +1,50 @@
+[
+{
+  "directory": "C:/Users/Asm/Desktop/5th Sem/AI/LAB/cp/build",
+  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/DynamicMazeSolver.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\DynamicMazeSolver.dir\\src\\main.cpp.obj -c \"C:\\Users\\Asm\\Desktop\\5th Sem\\AI\\LAB\\cp\\src\\main.cpp\"",
+  "file": "C:/Users/Asm/Desktop/5th Sem/AI/LAB/cp/src/main.cpp",
+  "output": "CMakeFiles/DynamicMazeSolver.dir/src/main.cpp.obj"
+},
+{
+  "directory": "C:/Users/Asm/Desktop/5th Sem/AI/LAB/cp/build",
+  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/DynamicMazeSolver.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\DynamicMazeSolver.dir\\src\\Config.cpp.obj -c \"C:\\Users\\Asm\\Desktop\\5th Sem\\AI\\LAB\\cp\\src\\Config.cpp\"",
+  "file": "C:/Users/Asm/Desktop/5th Sem/AI/LAB/cp/src/Config.cpp",
+  "output": "CMakeFiles/DynamicMazeSolver.dir/src/Config.cpp.obj"
+},
+{
+  "directory": "C:/Users/Asm/Desktop/5th Sem/AI/LAB/cp/build",
+  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/DynamicMazeSolver.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\DynamicMazeSolver.dir\\src\\Grid.cpp.obj -c \"C:\\Users\\Asm\\Desktop\\5th Sem\\AI\\LAB\\cp\\src\\Grid.cpp\"",
+  "file": "C:/Users/Asm/Desktop/5th Sem/AI/LAB/cp/src/Grid.cpp",
+  "output": "CMakeFiles/DynamicMazeSolver.dir/src/Grid.cpp.obj"
+},
+{
+  "directory": "C:/Users/Asm/Desktop/5th Sem/AI/LAB/cp/build",
+  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/DynamicMazeSolver.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\DynamicMazeSolver.dir\\src\\Pathfinder.cpp.obj -c \"C:\\Users\\Asm\\Desktop\\5th Sem\\AI\\LAB\\cp\\src\\Pathfinder.cpp\"",
+  "file": "C:/Users/Asm/Desktop/5th Sem/AI/LAB/cp/src/Pathfinder.cpp",
+  "output": "CMakeFiles/DynamicMazeSolver.dir/src/Pathfinder.cpp.obj"
+},
+{
+  "directory": "C:/Users/Asm/Desktop/5th Sem/AI/LAB/cp/build",
+  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/DynamicMazeSolver.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\DynamicMazeSolver.dir\\src\\AStarPathfinder.cpp.obj -c \"C:\\Users\\Asm\\Desktop\\5th Sem\\AI\\LAB\\cp\\src\\AStarPathfinder.cpp\"",
+  "file": "C:/Users/Asm/Desktop/5th Sem/AI/LAB/cp/src/AStarPathfinder.cpp",
+  "output": "CMakeFiles/DynamicMazeSolver.dir/src/AStarPathfinder.cpp.obj"
+},
+{
+  "directory": "C:/Users/Asm/Desktop/5th Sem/AI/LAB/cp/build",
+  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/DynamicMazeSolver.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\DynamicMazeSolver.dir\\src\\DynamicAStarPathfinder.cpp.obj -c \"C:\\Users\\Asm\\Desktop\\5th Sem\\AI\\LAB\\cp\\src\\DynamicAStarPathfinder.cpp\"",
+  "file": "C:/Users/Asm/Desktop/5th Sem/AI/LAB/cp/src/DynamicAStarPathfinder.cpp",
+  "output": "CMakeFiles/DynamicMazeSolver.dir/src/DynamicAStarPathfinder.cpp.obj"
+},
+{
+  "directory": "C:/Users/Asm/Desktop/5th Sem/AI/LAB/cp/build",
+  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/DynamicMazeSolver.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\DynamicMazeSolver.dir\\src\\Agent.cpp.obj -c \"C:\\Users\\Asm\\Desktop\\5th Sem\\AI\\LAB\\cp\\src\\Agent.cpp\"",
+  "file": "C:/Users/Asm/Desktop/5th Sem/AI/LAB/cp/src/Agent.cpp",
+  "output": "CMakeFiles/DynamicMazeSolver.dir/src/Agent.cpp.obj"
+},
+{
+  "directory": "C:/Users/Asm/Desktop/5th Sem/AI/LAB/cp/build",
+  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/DynamicMazeSolver.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\DynamicMazeSolver.dir\\src\\SimpleRenderer.cpp.obj -c \"C:\\Users\\Asm\\Desktop\\5th Sem\\AI\\LAB\\cp\\src\\SimpleRenderer.cpp\"",
+  "file": "C:/Users/Asm/Desktop/5th Sem/AI/LAB/cp/src/SimpleRenderer.cpp",
+  "output": "CMakeFiles/DynamicMazeSolver.dir/src/SimpleRenderer.cpp.obj"
+}
+]
