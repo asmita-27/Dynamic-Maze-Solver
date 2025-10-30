@@ -665,6 +665,12 @@ void initializeLevel(int level, bool manualObstacles) {
     // Change to selecting start state
     g_gameState = GameState::SELECTING_START;
     
+    // Reset loop-detection and manual-override state for a fresh level start
+    g_recentPositions.clear();
+    g_loopDetectionCount = 0;
+    g_allowManualToggleInAuto = false;
+    std::cout << "[Loop detection reset for new level]" << std::endl;
+    
     std::cout << "[Watch game screen for instructions]" << std::endl;
 }
 
