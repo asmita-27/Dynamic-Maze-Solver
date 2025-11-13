@@ -70,6 +70,7 @@ std::vector<Point> g_recentPositions;
 const int MAX_POSITION_HISTORY = 8;  // Track last 8 positions
 int g_loopDetectionCount = 0;
 bool g_allowManualToggleInAuto = false;  // Allow manual obstacle toggle when stuck
+bool g_showComparator = true;
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
@@ -468,126 +469,41 @@ void Render() {
             }
         } else if (g_gameState == GameState::PLAYING || g_gameState == GameState::LEVEL_COMPLETE) {
             if (g_agent) {
-                g_renderer->renderPath(g_agent->getCurrentPath());
+                // Only draw paths if agent has a valid path
+                if (g_agent->hasPath()) {
+                    // Draw comparator paths first (if any), so chosen/current path is highlighted
+                    const auto& stats = g_agent->getReplanStats();
+                    for (const auto& e : stats) {
+                        if (!e.result.success) continue;
+                        // A* -> blue, Dynamic A* -> magenta, LPA* -> green
+                        if (e.name.find("LPA") != std::string::npos) {
+                            g_renderer->renderPathColored(e.result.path, 0.2f, 1.0f, 0.4f);
+                        } else if (e.name.find("Dynamic") != std::string::npos) {
+                            g_renderer->renderPathColored(e.result.path, 1.0f, 0.2f, 0.8f);
+                        } else {
+                            g_renderer->renderPathColored(e.result.path, 0.4f, 0.7f, 1.0f);
+                        }
+                    }
+
+                    // Draw the agent's chosen path last so it stands out
+                    g_renderer->renderPath(g_agent->getCurrentPath());
+                }
+                // Always draw agent position
                 g_renderer->renderAgent(g_agent->getPosition());
             }
         }
         
-        // Draw info on the right side of the screen during gameplay
-        if (g_gameState == GameState::PLAYING || g_gameState == GameState::LEVEL_COMPLETE) {
-            float rightX = 720;
-            float rightY = 80;
-            
-            // Level indicator at top
-            glColor3f(1.0f, 0.8f, 0.0f);
-            std::string levelText = "LEVEL " + std::to_string(g_currentLevel) + " OF 5";
-            drawSimpleText(levelText, rightX, rightY, 1.1f);
-            
-            // Mode indicator
-            if (g_manualObstacleMode) {
-                glColor3f(0.4f, 1.0f, 0.4f);
-                drawSimpleText("MANUAL MODE", rightX, rightY + 30, 0.9f);
-            } else {
-                glColor3f(1.0f, 0.6f, 0.6f);
-                drawSimpleText("AUTO MODE", rightX, rightY + 30, 0.9f);
-                
-                // Show manual override status if enabled
-                if (g_allowManualToggleInAuto) {
-                    glColor3f(1.0f, 1.0f, 0.4f);
-                    drawSimpleText("MANUAL OVERRIDE ON", rightX, rightY + 55, 0.75f);
-                }
-            }
-            
-            // Goal completion message
-            if (g_gameState == GameState::LEVEL_COMPLETE) {
-                glColor3f(0.4f, 1.0f, 0.4f);
-                drawSimpleText("GOAL REACHED", rightX, rightY + 65, 1.0f);
-            }
-            
-            // Controls section
-            glColor3f(1.0f, 0.8f, 0.0f);
-            drawSimpleText("CONTROLS", rightX, rightY + 110, 1.2f);
-            
-            glColor3f(0.9f, 0.9f, 0.9f);
-            drawSimpleText("ARROW KEYS - MOVE", rightX, rightY + 140, 0.75f);
-            
-            if (g_manualObstacleMode) {
-                drawSimpleText("CLICK - TOGGLE OBSTACLE", rightX, rightY + 163, 0.75f);
-            } else {
-                glColor3f(1.0f, 0.7f, 0.7f);
-                drawSimpleText("AUTO OBSTACLES", rightX, rightY + 163, 0.75f);
-                glColor3f(1.0f, 1.0f, 0.4f);
-                drawSimpleText("SPACE - MANUAL OVERRIDE", rightX, rightY + 186, 0.75f);
-            }
-            
-            glColor3f(0.9f, 0.9f, 0.9f);
-            drawSimpleText("M - SWITCH MODE", rightX, rightY + 209, 0.75f);
-            drawSimpleText("R - RESET GAME", rightX, rightY + 232, 0.75f);
-            drawSimpleText("ESC Q - QUIT TO MENU", rightX, rightY + 255, 0.75f);
-            
-            if (g_gameState == GameState::LEVEL_COMPLETE) {
-                glColor3f(0.4f, 1.0f, 0.4f);
-                drawSimpleText("N - NEXT LEVEL", rightX, rightY + 278, 0.75f);
-            }
-            
-            // Instructions section
-            glColor3f(1.0f, 0.8f, 0.0f);
-            drawSimpleText("INSTRUCTIONS", rightX, rightY + 323, 1.2f);
-            
-            glColor3f(0.9f, 0.9f, 0.9f);
-            drawSimpleText("USE ARROW KEYS TO", rightX, rightY + 353, 0.75f);
-            drawSimpleText("MOVE THE YELLOW AGENT", rightX, rightY + 373, 0.75f);
-            drawSimpleText("TOWARDS THE RED GOAL", rightX, rightY + 393, 0.75f);
-            
-            glColor3f(0.7f, 0.9f, 1.0f);
-            drawSimpleText("PATH REPLANS AFTER", rightX, rightY + 423, 0.75f);
-            drawSimpleText("EVERY MOVE", rightX, rightY + 443, 0.75f);
-            
-            if (g_manualObstacleMode) {
-                glColor3f(0.7f, 1.0f, 0.7f);
-                drawSimpleText("CLICK CELLS TO", rightX, rightY + 473, 0.75f);
-                drawSimpleText("ADD OR REMOVE", rightX, rightY + 493, 0.75f);
-                drawSimpleText("OBSTACLES", rightX, rightY + 513, 0.75f);
-            } else {
-                glColor3f(1.0f, 0.7f, 0.7f);
-                drawSimpleText("OBSTACLES TOGGLE", rightX, rightY + 473, 0.75f);
-                drawSimpleText("AUTOMATICALLY", rightX, rightY + 493, 0.75f);
-                drawSimpleText("AFTER EACH MOVE", rightX, rightY + 513, 0.75f);
-                
-                if (g_allowManualToggleInAuto) {
-                    glColor3f(1.0f, 1.0f, 0.4f);
-                    drawSimpleText("MANUAL OVERRIDE ACTIVE", rightX, rightY + 543, 0.75f);
-                    drawSimpleText("CLICK TO TOGGLE", rightX, rightY + 563, 0.75f);
-                }
-            }
-            
-            // Legend section
-            float legendY = g_allowManualToggleInAuto ? rightY + 603 : rightY + 558;
-            glColor3f(1.0f, 0.8f, 0.0f);
-            drawSimpleText("LEGEND", rightX, legendY, 1.2f);
-            
-            glColor3f(0.4f, 1.0f, 0.4f);
-            drawSimpleText("GREEN - START", rightX, legendY + 30, 0.75f);
-            
-            glColor3f(1.0f, 0.4f, 0.4f);
-            drawSimpleText("RED - GOAL", rightX, legendY + 53, 0.75f);
-            
-            glColor3f(0.4f, 0.6f, 1.0f);
-            drawSimpleText("BLUE - PATH", rightX, legendY + 76, 0.75f);
-            
-            glColor3f(1.0f, 1.0f, 0.4f);
-            drawSimpleText("YELLOW - AGENT", rightX, legendY + 99, 0.75f);
-            
-            glColor3f(0.6f, 0.6f, 0.6f);
-            drawSimpleText("BLACK - WALL", rightX, legendY + 122, 0.75f);
-        }
+        // Right-side HUD/instructions are now drawn by SimpleRenderer::renderInstructions
+        // to avoid duplicate text and overlapping panels. No gameplay-side text
+        // is rendered here.
     }
     
     // Render instructions
     g_renderer->renderInstructions(
         static_cast<int>(g_gameState),
         g_manualObstacleMode,
-        g_currentLevel
+        g_currentLevel,
+        g_agent.get()
     );
     
     SwapBuffers(g_hdc);
@@ -1134,6 +1050,17 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
                 } else {
                     std::cout << "[Switched to AUTO mode - Obstacles toggle automatically]" << std::endl;
                 }
+                g_needsRender = true;
+            }
+            break;
+
+        case 'T':
+        case 't':
+            // Toggle realtime comparator display and collection
+            if (g_agent) {
+                bool newVal = !g_agent->isComparatorEnabled();
+                g_agent->setComparatorEnabled(newVal);
+                std::cout << (newVal ? "[Realtime comparator ENABLED]" : "[Realtime comparator DISABLED]") << std::endl;
                 g_needsRender = true;
             }
             break;

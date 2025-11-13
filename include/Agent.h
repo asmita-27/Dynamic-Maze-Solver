@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Grid.h"
 #include "Pathfinder.h"
+#include "RealtimeComparator.h"
 #include "Point.h"
 #include <memory>
 #include <vector>
@@ -36,10 +37,13 @@ public:
     
     // Statistics
     const PathfindingResult& getLastResult() const { return lastResult_; }
+    const std::vector<ComparatorEntry>& getReplanStats() const { return replanStats_; }
     std::string getPathfinderName() const;
     int getTotalNodesExpanded() const;
     std::chrono::milliseconds getTotalPlanningTime() const;
     void forceReplanning() { needsReplanning_ = true; }
+    void setComparatorEnabled(bool enabled) { comparatorEnabled_ = enabled; }
+    bool isComparatorEnabled() const { return comparatorEnabled_; }
 
 private:
     Point position_;
@@ -51,6 +55,8 @@ private:
     
     std::unique_ptr<Pathfinder> pathfinder_;
     PathfindingResult lastResult_;
+    std::vector<ComparatorEntry> replanStats_;
+    bool comparatorEnabled_ = true;
     
     unsigned long lastMoveTime_;
     unsigned long moveInterval_;

@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Point.h"
 #include "Grid.h"
+class Agent;
 #include <vector>
 #include <string>
 #include <windows.h>
@@ -14,8 +15,9 @@ public:
     void renderGrid(const Grid& grid);
     void renderAgent(const Point& position);
     void renderPath(const std::vector<Point>& path);
+    void renderPathColored(const std::vector<Point>& path, float r, float g, float b);
     void renderText(const std::string& text, float x, float y, int size = 16, COLORREF color = RGB(255, 255, 255));
-    void renderInstructions(int gameState, bool manualMode, int level);
+    void renderInstructions(int gameState, bool manualMode, int level, const Agent* agent = nullptr);
     void resize(int width, int height);
     void setDC(HDC hDC);
     

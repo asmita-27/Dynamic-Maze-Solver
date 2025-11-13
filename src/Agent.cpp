@@ -1,13 +1,15 @@
 ﻿#include "Agent.h"
 #include "AStarPathfinder.h"
 #include "DynamicAStarPathfinder.h"
+#include "LPAStarPathfinder.h"
+#include "RealtimeComparator.h"
 #include <iostream>
 #include <windows.h>
 
 Agent::Agent(const std::string& pathfinderType) 
     : position_(0, 0), start_(0, 0), goal_(0, 0), pathIndex_(0), 
       needsReplanning_(true), lastMoveTime_(0), moveInterval_(333), 
-      manualMode_(true) {  // Start in manual mode
+            manualMode_(true) {  // Start in manual mode
     
     setPathfinder(pathfinderType);
 }
@@ -29,6 +31,9 @@ void Agent::setPathfinder(const std::string& pathfinderType) {
                pathfinderType == "DStar" || pathfinderType == "D*") {
         pathfinder_ = std::make_unique<DynamicAStarPathfinder>();
         std::cout << "Agent: Pathfinder set to Dynamic A* (D* Lite)" << std::endl;
+    } else if (pathfinderType == "LPAStar" || pathfinderType == "LPA*" || pathfinderType == "LPA") {
+        pathfinder_ = std::make_unique<LPAStarPathfinder>();
+        std::cout << "Agent: Pathfinder set to LPA*" << std::endl;
     } else {
         // Default to A*
         pathfinder_ = std::make_unique<AStarPathfinder>();
@@ -56,13 +61,82 @@ void Agent::planPath(const Grid& grid) {
     // Update pathfinder settings
     pathfinder_->setMovementType(grid.isEightDirectional());
     
-    lastResult_ = pathfinder_->findPath(grid, position_, goal_);
-    
+    // Optionally run comparator to collect timings for each algorithm on this grid
+    if (comparatorEnabled_) {
+        RealtimeComparator comp;
+        replanStats_ = comp.runAll(grid, position_, goal_, grid.isEightDirectional());
+    } else {
+        replanStats_.clear();
+    }
+
+    // If comparator ran and produced stats, choose the optimal algorithm automatically
+    if (!replanStats_.empty()) {
+        // Choose the successful algorithm with the lowest path cost
+        float bestCost = std::numeric_limits<float>::infinity();
+        int bestIdx = -1;
+        const float eps = 0.001f;
+        for (size_t i = 0; i < replanStats_.size(); ++i) {
+            const auto& e = replanStats_[i];
+            if (!e.result.success) continue;
+
+            if (e.result.pathCost < bestCost - eps) {
+                bestCost = e.result.pathCost;
+                bestIdx = static_cast<int>(i);
+            } else if (fabs(e.result.pathCost - bestCost) < eps) {
+                // Tie-breaker when costs are equal: prefer Dynamic A* (repair-capable),
+                // otherwise prefer lower planning time.
+                if (bestIdx >= 0) {
+                    const auto& currentBest = replanStats_[bestIdx];
+                    bool eIsDynamic = (e.name.find("Dynamic") != std::string::npos);
+                    bool bestIsDynamic = (currentBest.name.find("Dynamic") != std::string::npos);
+                    if (eIsDynamic && !bestIsDynamic) {
+                        bestIdx = static_cast<int>(i);
+                    } else if (eIsDynamic == bestIsDynamic) {
+                        // Compare planning time (ms)
+                        auto eTime = e.result.planningTime.count();
+                        auto bestTime = currentBest.result.planningTime.count();
+                        if (eTime < bestTime) {
+                            bestIdx = static_cast<int>(i);
+                        }
+                    }
+                } else {
+                    bestIdx = static_cast<int>(i);
+                }
+            }
+        }
+
+        if (bestIdx >= 0) {
+            const auto& chosen = replanStats_[bestIdx];
+            std::cout << "Agent: Comparator selected best algorithm: " << chosen.name << " (cost=" << chosen.result.pathCost << ")" << std::endl;
+
+            // Switch the agent's pathfinder to the chosen algorithm so future repair/replans use it
+            if (chosen.name.find("LPA") != std::string::npos) {
+                setPathfinder("LPAStar");
+            } else if (chosen.name.find("Dynamic") != std::string::npos) {
+                setPathfinder("DynamicAStar");
+            } else {
+                setPathfinder("AStar");
+            }
+
+            // Ensure pathfinder movement settings are correct
+            pathfinder_->setMovementType(grid.isEightDirectional());
+
+            // Perform actual planning with the chosen pathfinder to initialize internal state
+            lastResult_ = pathfinder_->findPath(grid, position_, goal_);
+        } else {
+            // No successful result from comparator - fall back to configured pathfinder
+            lastResult_ = pathfinder_->findPath(grid, position_, goal_);
+        }
+    } else {
+        // No comparator results - use the agent's configured pathfinder for actual planning
+        lastResult_ = pathfinder_->findPath(grid, position_, goal_);
+    }
+
     if (lastResult_.success) {
         currentPath_ = lastResult_.path;
         pathIndex_ = 0;
         needsReplanning_ = false;
-        
+
         std::cout << "Agent: Path planned successfully - " << currentPath_.size() << " steps" << std::endl;
     } else {
         currentPath_.clear();
@@ -74,8 +148,9 @@ void Agent::planPath(const Grid& grid) {
 void Agent::update(Grid& grid) {
     // Check if replanning is needed
     if (needsReplanning(grid)) {
-        // For Dynamic A*, try repair first if grid changed
-        if (getPathfinderName().find("Dynamic") != std::string::npos && 
+        // For Dynamic A* and LPA*, try repair first if grid changed
+        if ((getPathfinderName().find("Dynamic") != std::string::npos || 
+             getPathfinderName().find("LPA") != std::string::npos) && 
             grid.hasChanges() && !currentPath_.empty()) {
             
             std::cout << "Agent: Attempting path repair..." << std::endl;

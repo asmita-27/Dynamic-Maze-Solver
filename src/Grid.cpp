@@ -54,13 +54,34 @@ std::vector<Point> Grid::getNeighbors(const Point& pos) const {
     std::vector<Point> neighbors;
     
     if (eightDirectional_) {
-        // 8-directional movement
-        for (int dy = -1; dy <= 1; dy++) {
-            for (int dx = -1; dx <= 1; dx++) {
-                if (dx == 0 && dy == 0) continue;
-                Point neighbor(pos.x + dx, pos.y + dy);
-                if (inBounds(neighbor)) {
-                    neighbors.push_back(neighbor);
+        // 8-directional movement with corner-cutting prevention
+        // First add orthogonal neighbors
+        Point orthogonal[] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        for (int i = 0; i < 4; i++) {
+            Point neighbor = pos + orthogonal[i];
+            if (inBounds(neighbor)) {
+                neighbors.push_back(neighbor);
+            }
+        }
+        
+        // Add diagonal neighbors only if both adjacent orthogonal cells are free
+        // This prevents "squeezing" through tight corners
+        Point diagonals[] = {{1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
+        Point adjacent[][2] = {
+            {{1, 0}, {0, 1}},   // for (1,1): check right and down
+            {{1, 0}, {0, -1}},  // for (1,-1): check right and up
+            {{-1, 0}, {0, 1}},  // for (-1,1): check left and down
+            {{-1, 0}, {0, -1}}  // for (-1,-1): check left and up
+        };
+        
+        for (int i = 0; i < 4; i++) {
+            Point diagonal = pos + diagonals[i];
+            if (inBounds(diagonal)) {
+                // Check if both adjacent orthogonal cells are free
+                Point adj1 = pos + adjacent[i][0];
+                Point adj2 = pos + adjacent[i][1];
+                if (inBounds(adj1) && inBounds(adj2) && isFree(adj1) && isFree(adj2)) {
+                    neighbors.push_back(diagonal);
                 }
             }
         }

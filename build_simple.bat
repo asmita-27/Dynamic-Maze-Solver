@@ -21,6 +21,8 @@ g++ -std=c++14 ^
     src/Pathfinder.cpp ^
     src/AStarPathfinder.cpp ^
     src/DynamicAStarPathfinder.cpp ^
+    src/LPAStarPathfinder.cpp ^
+    src/RealtimeComparator.cpp ^
     src/Agent.cpp ^
     src/SimpleRenderer.cpp ^
     -lopengl32 -lgdi32 -luser32 -lkernel32 -lwinmm ^
@@ -32,7 +34,7 @@ if exist "MazeSolver.exe" (
     echo  BUILD SUCCESSFUL!
     echo ==========================================
     echo.
-    echo ✅ A* and Dynamic A* algorithms
+    echo ✅ A*, Dynamic A*, and LPA* algorithms
     echo ✅ Real-time pathfinding and replanning
     echo ✅ Interactive obstacle editing
     echo ✅ Scheduled and random events
