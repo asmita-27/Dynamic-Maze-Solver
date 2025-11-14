@@ -60,9 +60,15 @@ float LPAStarPathfinder::getCost(const Point& from, const Point& to, const Grid&
     int dx = std::abs(to.x - from.x);
     int dy = std::abs(to.y - from.y);
     
+    // If this is a diagonal move (dx==1 && dy==1)
     if (dx + dy == 2) {
+        // If diagonal movement is disabled, treat diagonal as impassable
+        if (!eightDirectional_) {
+            return 1000000.0f;
+        }
         return 1.414f;
     }
+
     return 1.0f;
 }
 

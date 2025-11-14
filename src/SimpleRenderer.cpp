@@ -139,16 +139,16 @@ void SimpleRenderer::renderPathColored(const std::vector<Point>& path, float r, 
 
     setColor(r, g, b);
 
-    // Draw small markers for each path node
+    // Draw small markers for each path node (increased size for visibility)
     for (const auto& point : path) {
         float centerX = offsetX_ + point.x * cellSize_ + cellSize_ / 2;
         float centerY = offsetY_ + point.y * cellSize_ + cellSize_ / 2;
-        float size = cellSize_ * 0.22f;
+        float size = cellSize_ * 0.28f;
         drawRect(centerX - size/2, centerY - size/2, size, size);
     }
 
-    // Draw connecting line
-    glLineWidth(2.0f);
+    // Draw connecting line (thicker for better visibility)
+    glLineWidth(2.5f);
     glBegin(GL_LINE_STRIP);
     for (const auto& point : path) {
         float centerX = offsetX_ + point.x * cellSize_ + cellSize_ / 2;
@@ -379,22 +379,76 @@ void SimpleRenderer::renderInstructions(int gameState, bool manualMode, int leve
             float y = timingsTop + 24.0f;
             int shown = 0;
             std::string activePathfinder = agent->getPathfinderName();
-            for (const auto& e : stats) {
+
+            auto namesMatch = [](const std::string& a, const std::string& b) {
+                if (a.find("LPA") != std::string::npos && b.find("LPA") != std::string::npos) return true;
+                if (a.find("Dynamic") != std::string::npos && b.find("Dynamic") != std::string::npos) return true;
+                if (a == "A*" && b == "A*") return true;
+                if (a.find("A*") != std::string::npos && b.find("A*") != std::string::npos) {
+                    if (a.find("Dynamic") != std::string::npos || b.find("Dynamic") != std::string::npos) return false;
+                    return true;
+                }
+                return a == b;
+            };
+
+            // Determine which single entry (if any) should be marked CHOSEN.
+            int chosenIndex = -1;
+            std::vector<int> exactMatches;
+            if (agent->hasPath()) {
+                const auto& agentPath = agent->getCurrentPath();
+                for (size_t i = 0; i < stats.size(); ++i) {
+                    if (!stats[i].result.success) continue;
+                    const auto& compPath = stats[i].result.path;
+                    if (!agentPath.empty() && agentPath.size() == compPath.size()) {
+                        bool same = true;
+                        for (size_t k = 0; k < agentPath.size(); ++k) {
+                            if (!(agentPath[k] == compPath[k])) { same = false; break; }
+                        }
+                        if (same) exactMatches.push_back(static_cast<int>(i));
+                    }
+                }
+            }
+
+            if (exactMatches.size() == 1) {
+                chosenIndex = exactMatches[0];
+            } else if (exactMatches.size() > 1) {
+                // Prefer the one that matches the agent's active pathfinder name
+                for (int idx : exactMatches) {
+                    if (namesMatch(stats[idx].name, activePathfinder)) { chosenIndex = idx; break; }
+                }
+                // If still ambiguous, prefer any dynamic algorithm among the matches
+                if (chosenIndex == -1) {
+                    for (int idx : exactMatches) {
+                        if (stats[idx].name.find("Dynamic") != std::string::npos) { chosenIndex = idx; break; }
+                    }
+                }
+                // Fallback to the first exact match
+                if (chosenIndex == -1) chosenIndex = exactMatches[0];
+            } else {
+                // No exact path matches - fallback to name matching
+                for (size_t i = 0; i < stats.size(); ++i) {
+                    if (!stats[i].result.success) continue;
+                    if (namesMatch(stats[i].name, activePathfinder)) { chosenIndex = static_cast<int>(i); break; }
+                }
+            }
+
+            // Now render lines - only for successful paths
+            for (size_t idx = 0; idx < stats.size(); ++idx) {
+                const auto& e = stats[idx];
                 if (!e.result.success) continue;
                 if (shown >= maxLines) break;
-                
+
                 std::stringstream line;
                 line << e.name << ": ";
                 line << e.result.planningTime.count() << " ms";
                 line << "  (n=" << e.result.nodesExpanded << ")";
                 line << " c=" << static_cast<int>(e.result.pathCost);
                 if (fabs(e.result.pathCost - bestCost) < 0.001f) line << " OPT";
-                
-                // Mark CHOSEN for the algorithm that agent is actually using
-                if (e.name == activePathfinder) {
+
+                if (static_cast<int>(idx) == chosenIndex) {
                     line << " CHOSEN";
                 }
-                
+
                 renderText(line.str(), timingsLeft + 8.0f, y, 12, RGB(220,220,220));
                 y += lineH;
                 shown++;
@@ -503,10 +557,10 @@ void SimpleRenderer::renderInstructions(int gameState, bool manualMode, int leve
         renderText("Green = Start", textX, legendY + 22, 14, RGB(100, 255, 100));
         renderText("Red = Goal", textX, legendY + 38, 14, RGB(255, 100, 100));
         renderText("Cyan = A* Path", textX, legendY + 54, 14, RGB(100, 180, 255));
-        renderText("Magenta = D* Path", textX, legendY + 70, 14, RGB(255, 50, 200));
-        renderText("Green = LPA* Path", textX, legendY + 86, 14, RGB(50, 255, 100));
-        renderText("Blue = Chosen Path", textX, legendY + 102, 14, RGB(100, 150, 255));
-        renderText("Yellow = Agent", textX, legendY + 118, 14, RGB(255, 255, 100));
+        // Magenta/D* legend removed per user request
+        renderText("Green = LPA* Path", textX, legendY + 70, 14, RGB(50, 255, 100));
+        renderText("Blue = Chosen Path", textX, legendY + 86, 14, RGB(100, 150, 255));
+        renderText("Yellow = Agent", textX, legendY + 102, 14, RGB(255, 255, 100));
         renderText("Black = Obstacle", textX, legendY + 134, 14, RGB(150, 150, 150));
     }
 }
