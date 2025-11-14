@@ -475,18 +475,47 @@ void Render() {
                     const auto& stats = g_agent->getReplanStats();
                     for (const auto& e : stats) {
                         if (!e.result.success) continue;
-                        // A* -> blue, Dynamic A* -> magenta, LPA* -> green
+
+                        // Validate path against current grid: skip if any node is blocked
+                        bool validPath = true;
+                        if (e.result.path.empty()) validPath = false;
+                        for (const auto& p : e.result.path) {
+                            if (!g_grid->isFree(p)) { validPath = false; break; }
+                        }
+
+                        // Also skip paths that don't actually reach the goal (dead-ends)
+                        if (validPath) {
+                            Point goal = g_agent->getGoal();
+                            if (e.result.path.empty() || !(e.result.path.back() == goal)) {
+                                validPath = false;
+                            }
+                        }
+
+                        if (!validPath) continue; // don't render invalid or dead-end paths
+
+                        // A* -> cyan, Dynamic A* -> bright magenta/pink, LPA* -> bright green
                         if (e.name.find("LPA") != std::string::npos) {
-                            g_renderer->renderPathColored(e.result.path, 0.2f, 1.0f, 0.4f);
+                            g_renderer->renderPathColored(e.result.path, 0.0f, 1.0f, 0.3f);
                         } else if (e.name.find("Dynamic") != std::string::npos) {
-                            g_renderer->renderPathColored(e.result.path, 1.0f, 0.2f, 0.8f);
+                            g_renderer->renderPathColored(e.result.path, 0.9f, 0.0f, 0.6f);
                         } else {
                             g_renderer->renderPathColored(e.result.path, 0.4f, 0.7f, 1.0f);
                         }
                     }
 
-                    // Draw the agent's chosen path last so it stands out
-                    g_renderer->renderPath(g_agent->getCurrentPath());
+                    // Draw the agent's chosen path last so it stands out, but only if it's valid
+                    const auto& chosenPath = g_agent->getCurrentPath();
+                    bool chosenValid = true;
+                    if (chosenPath.empty()) chosenValid = false;
+                    for (const auto& p : chosenPath) {
+                        if (!g_grid->isFree(p)) { chosenValid = false; break; }
+                    }
+                    if (chosenValid) {
+                        // Also ensure it actually reaches the goal
+                        if (!chosenPath.empty() && chosenPath.back() == g_agent->getGoal()) {
+                            g_renderer->renderPath(chosenPath);
+                        }
+                    }
                 }
                 // Always draw agent position
                 g_renderer->renderAgent(g_agent->getPosition());
