@@ -7,7 +7,7 @@
 DynamicAStarPathfinder::DynamicAStarPathfinder() 
     : heuristicType_("manhattan"), eightDirectional_(false), 
       totalNodesExpanded_(0), totalPlanningTime_(0), 
-      nodes_(), inQueue_(), initialized_(false) {
+    nodes_(), inQueue_(), initialized_(false), km_(0.0f) {
 }
 
 PathfindingResult DynamicAStarPathfinder::findPath(const Grid& grid, const Point& start, const Point& goal) {
@@ -37,7 +37,9 @@ PathfindingResult DynamicAStarPathfinder::findPath(const Grid& grid, const Point
         computeShortestPath(grid);
         initialized_ = true;
     } else if (startPos_ != start) {
-        // Start position changed - update heuristics
+        // Start position changed - update km and heuristics
+        float delta = calculateHeuristic(startPos_, start);
+        km_ += delta;
         startPos_ = start;
         for (auto& pair : nodes_) {
             pair.second.key = calculateKey(pair.first);
@@ -80,6 +82,9 @@ PathfindingResult DynamicAStarPathfinder::repairPath(const Grid& grid, const Poi
     }
     
     // Update start position
+    // Increase km by heuristic distance between old and new start
+    float delta = calculateHeuristic(startPos_, currentPos);
+    km_ += delta;
     startPos_ = currentPos;
     
     // Recompute shortest path from new position
@@ -134,6 +139,7 @@ void DynamicAStarPathfinder::reset() {
     initialized_ = false;
     totalNodesExpanded_ = 0;
     totalPlanningTime_ = std::chrono::milliseconds(0);
+    km_ = 0.0f;
     std::cout << "D* Lite pathfinder reset" << std::endl;
 }
 
@@ -167,7 +173,7 @@ float DynamicAStarPathfinder::calculateHeuristic(const Point& from, const Point&
 
 DStarKey DynamicAStarPathfinder::calculateKey(const Point& pos) const {
     float minVal = (nodes_.at(pos).g < nodes_.at(pos).rhs) ? nodes_.at(pos).g : nodes_.at(pos).rhs;
-    float k1 = minVal + calculateHeuristic(startPos_, pos);
+    float k1 = minVal + calculateHeuristic(startPos_, pos) + km_;
     float k2 = minVal;
     return DStarKey(k1, k2);
 }
@@ -346,6 +352,8 @@ void DynamicAStarPathfinder::initialize(const Grid& grid, const Point& start, co
     
     openQueue_.push(std::make_pair(nodes_[goalPos_].key, goalPos_));
     inQueue_.insert(goalPos_);
+    // Reset km when reinitializing
+    km_ = 0.0f;
     
     std::cout << "D* Lite: Initialized from (" << start.x << "," << start.y 
               << ") to (" << goal.x << "," << goal.y << ")" << std::endl;

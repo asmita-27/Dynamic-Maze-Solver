@@ -75,4 +75,5 @@ private:
                        DStarCompare> openQueue_;
     std::unordered_set<Point> inQueue_;
     bool initialized_;
+    float km_;
 };
