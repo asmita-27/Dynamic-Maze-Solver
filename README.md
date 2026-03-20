@@ -90,7 +90,7 @@ Dynamic Maze Solver is an educational and interactive application that demonstra
 
 ## 🧮 Algorithms
 
-### A\* (A-Star) Pathfinding
+### A\* (A*) Pathfinding
 
 **Initial Path Calculation**
 - Optimal pathfinding using heuristic search
