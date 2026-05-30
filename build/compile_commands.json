@@ -43,6 +43,18 @@
 },
 {
   "directory": "C:/Users/Asm/Desktop/5th Sem/AI/LAB/cp/build",
+  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/DynamicMazeSolver.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\DynamicMazeSolver.dir\\src\\RealtimeComparator.cpp.obj -c \"C:\\Users\\Asm\\Desktop\\5th Sem\\AI\\LAB\\cp\\src\\RealtimeComparator.cpp\"",
+  "file": "C:/Users/Asm/Desktop/5th Sem/AI/LAB/cp/src/RealtimeComparator.cpp",
+  "output": "CMakeFiles/DynamicMazeSolver.dir/src/RealtimeComparator.cpp.obj"
+},
+{
+  "directory": "C:/Users/Asm/Desktop/5th Sem/AI/LAB/cp/build",
+  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/DynamicMazeSolver.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\DynamicMazeSolver.dir\\src\\LPAStarPathfinder.cpp.obj -c \"C:\\Users\\Asm\\Desktop\\5th Sem\\AI\\LAB\\cp\\src\\LPAStarPathfinder.cpp\"",
+  "file": "C:/Users/Asm/Desktop/5th Sem/AI/LAB/cp/src/LPAStarPathfinder.cpp",
+  "output": "CMakeFiles/DynamicMazeSolver.dir/src/LPAStarPathfinder.cpp.obj"
+},
+{
+  "directory": "C:/Users/Asm/Desktop/5th Sem/AI/LAB/cp/build",
   "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/DynamicMazeSolver.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\DynamicMazeSolver.dir\\src\\SimpleRenderer.cpp.obj -c \"C:\\Users\\Asm\\Desktop\\5th Sem\\AI\\LAB\\cp\\src\\SimpleRenderer.cpp\"",
   "file": "C:/Users/Asm/Desktop/5th Sem/AI/LAB/cp/src/SimpleRenderer.cpp",
   "output": "CMakeFiles/DynamicMazeSolver.dir/src/SimpleRenderer.cpp.obj"

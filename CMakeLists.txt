@@ -20,6 +20,8 @@ set(SOURCES
     src/AStarPathfinder.cpp
     src/DynamicAStarPathfinder.cpp
     src/Agent.cpp
+    src/RealtimeComparator.cpp
+    src/LPAStarPathfinder.cpp
     src/SimpleRenderer.cpp
 )
 

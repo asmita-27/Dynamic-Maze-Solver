@@ -248,6 +248,30 @@ src/Grid.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DynamicMazeSolver.dir\build.make CMakeFiles/DynamicMazeSolver.dir/src/Grid.cpp.s
 .PHONY : src/Grid.cpp.s
 
+src/LPAStarPathfinder.obj: src/LPAStarPathfinder.cpp.obj
+.PHONY : src/LPAStarPathfinder.obj
+
+# target to build an object file
+src/LPAStarPathfinder.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DynamicMazeSolver.dir\build.make CMakeFiles/DynamicMazeSolver.dir/src/LPAStarPathfinder.cpp.obj
+.PHONY : src/LPAStarPathfinder.cpp.obj
+
+src/LPAStarPathfinder.i: src/LPAStarPathfinder.cpp.i
+.PHONY : src/LPAStarPathfinder.i
+
+# target to preprocess a source file
+src/LPAStarPathfinder.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DynamicMazeSolver.dir\build.make CMakeFiles/DynamicMazeSolver.dir/src/LPAStarPathfinder.cpp.i
+.PHONY : src/LPAStarPathfinder.cpp.i
+
+src/LPAStarPathfinder.s: src/LPAStarPathfinder.cpp.s
+.PHONY : src/LPAStarPathfinder.s
+
+# target to generate assembly for a file
+src/LPAStarPathfinder.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DynamicMazeSolver.dir\build.make CMakeFiles/DynamicMazeSolver.dir/src/LPAStarPathfinder.cpp.s
+.PHONY : src/LPAStarPathfinder.cpp.s
+
 src/Pathfinder.obj: src/Pathfinder.cpp.obj
 .PHONY : src/Pathfinder.obj
 
@@ -271,6 +295,30 @@ src/Pathfinder.s: src/Pathfinder.cpp.s
 src/Pathfinder.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DynamicMazeSolver.dir\build.make CMakeFiles/DynamicMazeSolver.dir/src/Pathfinder.cpp.s
 .PHONY : src/Pathfinder.cpp.s
+
+src/RealtimeComparator.obj: src/RealtimeComparator.cpp.obj
+.PHONY : src/RealtimeComparator.obj
+
+# target to build an object file
+src/RealtimeComparator.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DynamicMazeSolver.dir\build.make CMakeFiles/DynamicMazeSolver.dir/src/RealtimeComparator.cpp.obj
+.PHONY : src/RealtimeComparator.cpp.obj
+
+src/RealtimeComparator.i: src/RealtimeComparator.cpp.i
+.PHONY : src/RealtimeComparator.i
+
+# target to preprocess a source file
+src/RealtimeComparator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DynamicMazeSolver.dir\build.make CMakeFiles/DynamicMazeSolver.dir/src/RealtimeComparator.cpp.i
+.PHONY : src/RealtimeComparator.cpp.i
+
+src/RealtimeComparator.s: src/RealtimeComparator.cpp.s
+.PHONY : src/RealtimeComparator.s
+
+# target to generate assembly for a file
+src/RealtimeComparator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DynamicMazeSolver.dir\build.make CMakeFiles/DynamicMazeSolver.dir/src/RealtimeComparator.cpp.s
+.PHONY : src/RealtimeComparator.cpp.s
 
 src/SimpleRenderer.obj: src/SimpleRenderer.cpp.obj
 .PHONY : src/SimpleRenderer.obj
@@ -344,9 +392,15 @@ help:
 	@echo ... src/Grid.obj
 	@echo ... src/Grid.i
 	@echo ... src/Grid.s
+	@echo ... src/LPAStarPathfinder.obj
+	@echo ... src/LPAStarPathfinder.i
+	@echo ... src/LPAStarPathfinder.s
 	@echo ... src/Pathfinder.obj
 	@echo ... src/Pathfinder.i
 	@echo ... src/Pathfinder.s
+	@echo ... src/RealtimeComparator.obj
+	@echo ... src/RealtimeComparator.i
+	@echo ... src/RealtimeComparator.s
 	@echo ... src/SimpleRenderer.obj
 	@echo ... src/SimpleRenderer.i
 	@echo ... src/SimpleRenderer.s

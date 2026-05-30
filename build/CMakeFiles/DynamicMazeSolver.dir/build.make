@@ -176,11 +176,41 @@ CMakeFiles/DynamicMazeSolver.dir/src/Agent.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/DynamicMazeSolver.dir/src/Agent.cpp.s"
 	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Asm\Desktop\5th Sem\AI\LAB\cp\src\Agent.cpp" -o CMakeFiles\DynamicMazeSolver.dir\src\Agent.cpp.s
 
+CMakeFiles/DynamicMazeSolver.dir/src/RealtimeComparator.cpp.obj: CMakeFiles/DynamicMazeSolver.dir/flags.make
+CMakeFiles/DynamicMazeSolver.dir/src/RealtimeComparator.cpp.obj: CMakeFiles/DynamicMazeSolver.dir/includes_CXX.rsp
+CMakeFiles/DynamicMazeSolver.dir/src/RealtimeComparator.cpp.obj: C:/Users/Asm/Desktop/5th\ Sem/AI/LAB/cp/src/RealtimeComparator.cpp
+CMakeFiles/DynamicMazeSolver.dir/src/RealtimeComparator.cpp.obj: CMakeFiles/DynamicMazeSolver.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Asm\Desktop\5th Sem\AI\LAB\cp\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/DynamicMazeSolver.dir/src/RealtimeComparator.cpp.obj"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/DynamicMazeSolver.dir/src/RealtimeComparator.cpp.obj -MF CMakeFiles\DynamicMazeSolver.dir\src\RealtimeComparator.cpp.obj.d -o CMakeFiles\DynamicMazeSolver.dir\src\RealtimeComparator.cpp.obj -c "C:\Users\Asm\Desktop\5th Sem\AI\LAB\cp\src\RealtimeComparator.cpp"
+
+CMakeFiles/DynamicMazeSolver.dir/src/RealtimeComparator.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/DynamicMazeSolver.dir/src/RealtimeComparator.cpp.i"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Asm\Desktop\5th Sem\AI\LAB\cp\src\RealtimeComparator.cpp" > CMakeFiles\DynamicMazeSolver.dir\src\RealtimeComparator.cpp.i
+
+CMakeFiles/DynamicMazeSolver.dir/src/RealtimeComparator.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/DynamicMazeSolver.dir/src/RealtimeComparator.cpp.s"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Asm\Desktop\5th Sem\AI\LAB\cp\src\RealtimeComparator.cpp" -o CMakeFiles\DynamicMazeSolver.dir\src\RealtimeComparator.cpp.s
+
+CMakeFiles/DynamicMazeSolver.dir/src/LPAStarPathfinder.cpp.obj: CMakeFiles/DynamicMazeSolver.dir/flags.make
+CMakeFiles/DynamicMazeSolver.dir/src/LPAStarPathfinder.cpp.obj: CMakeFiles/DynamicMazeSolver.dir/includes_CXX.rsp
+CMakeFiles/DynamicMazeSolver.dir/src/LPAStarPathfinder.cpp.obj: C:/Users/Asm/Desktop/5th\ Sem/AI/LAB/cp/src/LPAStarPathfinder.cpp
+CMakeFiles/DynamicMazeSolver.dir/src/LPAStarPathfinder.cpp.obj: CMakeFiles/DynamicMazeSolver.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Asm\Desktop\5th Sem\AI\LAB\cp\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/DynamicMazeSolver.dir/src/LPAStarPathfinder.cpp.obj"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/DynamicMazeSolver.dir/src/LPAStarPathfinder.cpp.obj -MF CMakeFiles\DynamicMazeSolver.dir\src\LPAStarPathfinder.cpp.obj.d -o CMakeFiles\DynamicMazeSolver.dir\src\LPAStarPathfinder.cpp.obj -c "C:\Users\Asm\Desktop\5th Sem\AI\LAB\cp\src\LPAStarPathfinder.cpp"
+
+CMakeFiles/DynamicMazeSolver.dir/src/LPAStarPathfinder.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/DynamicMazeSolver.dir/src/LPAStarPathfinder.cpp.i"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Asm\Desktop\5th Sem\AI\LAB\cp\src\LPAStarPathfinder.cpp" > CMakeFiles\DynamicMazeSolver.dir\src\LPAStarPathfinder.cpp.i
+
+CMakeFiles/DynamicMazeSolver.dir/src/LPAStarPathfinder.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/DynamicMazeSolver.dir/src/LPAStarPathfinder.cpp.s"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Asm\Desktop\5th Sem\AI\LAB\cp\src\LPAStarPathfinder.cpp" -o CMakeFiles\DynamicMazeSolver.dir\src\LPAStarPathfinder.cpp.s
+
 CMakeFiles/DynamicMazeSolver.dir/src/SimpleRenderer.cpp.obj: CMakeFiles/DynamicMazeSolver.dir/flags.make
 CMakeFiles/DynamicMazeSolver.dir/src/SimpleRenderer.cpp.obj: CMakeFiles/DynamicMazeSolver.dir/includes_CXX.rsp
 CMakeFiles/DynamicMazeSolver.dir/src/SimpleRenderer.cpp.obj: C:/Users/Asm/Desktop/5th\ Sem/AI/LAB/cp/src/SimpleRenderer.cpp
 CMakeFiles/DynamicMazeSolver.dir/src/SimpleRenderer.cpp.obj: CMakeFiles/DynamicMazeSolver.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Asm\Desktop\5th Sem\AI\LAB\cp\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/DynamicMazeSolver.dir/src/SimpleRenderer.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Asm\Desktop\5th Sem\AI\LAB\cp\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/DynamicMazeSolver.dir/src/SimpleRenderer.cpp.obj"
 	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/DynamicMazeSolver.dir/src/SimpleRenderer.cpp.obj -MF CMakeFiles\DynamicMazeSolver.dir\src\SimpleRenderer.cpp.obj.d -o CMakeFiles\DynamicMazeSolver.dir\src\SimpleRenderer.cpp.obj -c "C:\Users\Asm\Desktop\5th Sem\AI\LAB\cp\src\SimpleRenderer.cpp"
 
 CMakeFiles/DynamicMazeSolver.dir/src/SimpleRenderer.cpp.i: cmake_force
@@ -200,6 +230,8 @@ DynamicMazeSolver_OBJECTS = \
 "CMakeFiles/DynamicMazeSolver.dir/src/AStarPathfinder.cpp.obj" \
 "CMakeFiles/DynamicMazeSolver.dir/src/DynamicAStarPathfinder.cpp.obj" \
 "CMakeFiles/DynamicMazeSolver.dir/src/Agent.cpp.obj" \
+"CMakeFiles/DynamicMazeSolver.dir/src/RealtimeComparator.cpp.obj" \
+"CMakeFiles/DynamicMazeSolver.dir/src/LPAStarPathfinder.cpp.obj" \
 "CMakeFiles/DynamicMazeSolver.dir/src/SimpleRenderer.cpp.obj"
 
 # External object files for target DynamicMazeSolver
@@ -212,12 +244,14 @@ bin/DynamicMazeSolver.exe: CMakeFiles/DynamicMazeSolver.dir/src/Pathfinder.cpp.o
 bin/DynamicMazeSolver.exe: CMakeFiles/DynamicMazeSolver.dir/src/AStarPathfinder.cpp.obj
 bin/DynamicMazeSolver.exe: CMakeFiles/DynamicMazeSolver.dir/src/DynamicAStarPathfinder.cpp.obj
 bin/DynamicMazeSolver.exe: CMakeFiles/DynamicMazeSolver.dir/src/Agent.cpp.obj
+bin/DynamicMazeSolver.exe: CMakeFiles/DynamicMazeSolver.dir/src/RealtimeComparator.cpp.obj
+bin/DynamicMazeSolver.exe: CMakeFiles/DynamicMazeSolver.dir/src/LPAStarPathfinder.cpp.obj
 bin/DynamicMazeSolver.exe: CMakeFiles/DynamicMazeSolver.dir/src/SimpleRenderer.cpp.obj
 bin/DynamicMazeSolver.exe: CMakeFiles/DynamicMazeSolver.dir/build.make
 bin/DynamicMazeSolver.exe: CMakeFiles/DynamicMazeSolver.dir/linkLibs.rsp
 bin/DynamicMazeSolver.exe: CMakeFiles/DynamicMazeSolver.dir/objects1.rsp
 bin/DynamicMazeSolver.exe: CMakeFiles/DynamicMazeSolver.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="C:\Users\Asm\Desktop\5th Sem\AI\LAB\cp\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable bin\DynamicMazeSolver.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="C:\Users\Asm\Desktop\5th Sem\AI\LAB\cp\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable bin\DynamicMazeSolver.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\DynamicMazeSolver.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

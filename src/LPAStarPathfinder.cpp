@@ -46,7 +46,7 @@ LPAKey LPAStarPathfinder::calculateKey(const Point& pos) const {
     if (it == nodes_.end()) {
         return LPAKey(1000000.0f, 1000000.0f);
     }
-    
+
     float minVal = std::min(it->second.g, it->second.rhs);
     float h = calculateHeuristic(pos, startPos_);
     return LPAKey(minVal + h, minVal);
